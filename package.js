@@ -1,40 +1,37 @@
 /* global Package */
 
 Package.describe({
-  name: 'cultofcoders:apollo-accounts',
-  version: '3.4.0',
+  name: "4fox4:apollo-accounts",
+  version: "0.1.0",
   // Brief, one-line summary of the package.
-  summary: 'Meteor accounts in GraphQL',
+  summary: "Meteor accounts in GraphQL",
   // URL to the Git repository containing the source code for this package.
-  git: 'https://github.com/cult-of-coders/meteor-apollo-accounts',
+  git: "https://github.com/4fox4/meteor-apollo-accounts",
   // By default, Meteor will default to using README.md for documentation.
   // To avoid submitting documentation, set this field to null.
-  documentation: 'README.md',
+  documentation: "README.md",
 });
 
-Package.onUse(function(api) {
-  api.versionsFrom('1.4.1.2');
+Package.onUse(function (api) {
+  api.versionsFrom("2.4");
 
   api.use(
     [
-      'tmeasday:check-npm-versions@0.3.1',
-      'check',
-      'accounts-base',
-      'oauth2',
-      'npm-bcrypt',
-      'random',
-      'ecmascript',
-      'http',
-      'random',
-      'oauth',
-      'service-configuration',
-      'accounts-oauth',
-      'sha',
+      "check",
+      "accounts-base",
+      "oauth2",
+      "ecmascript",
+      "http@2.0.0",
+      "random",
+      "oauth",
+      "service-configuration",
+      "accounts-oauth",
+      "sha",
     ],
-    'server'
+    "server"
   );
 
-  api.mainModule('src/index.js', 'server');
+  api.mainModule("src/index.js", "server");
 });
 
-Package.onTest(function(api) {});
+Package.onTest(function (api) {});
