@@ -1,8 +1,8 @@
-import {Accounts} from 'meteor/accounts-base'
+import { Accounts } from "meteor/accounts-base";
 
-export default async function (root, {email}, {userId}) {
-  Accounts.sendVerificationEmail(userId, email)
+export default async function (root, { email }, { userId }) {
+  await Accounts.sendVerificationEmail(userId, email);
   return {
-    success: true
-  }
+    success: true,
+  };
 }

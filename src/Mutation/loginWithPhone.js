@@ -1,14 +1,17 @@
-import callMethod from '../callMethod'
-import {Meteor} from 'meteor/meteor'
-
+import callMethod from "../callMethod";
 
 export default async function (root, options, context) {
   if (!options.phone) {
-    throw new Error('Phone number is required')
+    throw new Error("Phone number is required");
   }
   if (!options.verificationCode) {
-    throw new Error('Verification code is required')
+    throw new Error("Verification code is required");
   }
 
-  return callMethod(context, 'verifyPhone', options.phone, options.verificationCode)
+  return await callMethod(
+    context,
+    "verifyPhone",
+    options.phone,
+    options.verificationCode,
+  );
 }

@@ -1,23 +1,23 @@
 export default function (options, service) {
-  if (service === 'facebook') {
-    return options.loginWithFacebook
+  if (service === "facebook") {
+    return options.loginWithFacebook;
   }
 
-  if (service === 'google') {
-    return options.loginWithGoogle
+  if (service === "google") {
+    return options.loginWithGoogle;
   }
 
-  if (service === 'password') {
-    return options.loginWithPassword
+  if (service === "password") {
+    return options.loginWithPassword;
   }
 
-  if (service === 'linkedin') {
-    return options.loginWithLinkedIn
+  if (service === "linkedin") {
+    return options.loginWithLinkedIn;
   }
 
-  if (service === 'phone') {
-    return options.loginWithPhone
+  if (service === "phone") {
+    return options.loginWithPhone;
   }
 
-  return false
+  return false;
 }

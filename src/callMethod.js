@@ -1,7 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import getConnection from "./getConnection";
 
-export default function (passedContext, name, ...args) {
+export default async function (passedContext, name, ...args) {
   const handler = Meteor.server.method_handlers[name];
   if (!handler) {
     throw new Meteor.Error(404, `Method '${name}' not found`);
@@ -10,13 +10,9 @@ export default function (passedContext, name, ...args) {
   const connection = getConnection();
   const context = {
     connection,
-    setUserId(userId) {
-      /**
-       * This will not make any changes if you don\'t pass setUserId function in context
-       */
-    },
+    setUserId(userId) {},
     ...passedContext,
   };
 
-  return handler.call(context, ...args);
+  return await handler.call(context, ...args);
 }

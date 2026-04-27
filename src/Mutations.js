@@ -1,9 +1,9 @@
-import hasService from './Mutation/oauth/hasService';
+import hasService from "./Mutation/oauth/hasService";
 
-export default function(options) {
+export default function (options) {
   const mutations = [];
 
-  if (hasService(options, 'password')) {
+  if (hasService(options, "password")) {
     mutations.push(`
     type Mutation {
       # Log the user in with a password.
@@ -23,8 +23,8 @@ export default function(options) {
     }`);
   }
 
-  if (hasService(options, 'phone')) {
-      mutations.push(`
+  if (hasService(options, "phone")) {
+    mutations.push(`
       type Mutation {
         # Log the user in with a phone.
         loginWithPhone (phone: String, verificationCode: String): LoginMethodResponse
@@ -34,7 +34,7 @@ export default function(options) {
 
         # Send verification code to phone.
         resendPhoneVerification (phone: String): AuthSuccessResponse
-      }`)
+      }`);
   }
 
   mutations.push(`
@@ -49,7 +49,7 @@ export default function(options) {
     resendVerificationEmail (email: String): AuthSuccessResponse
   }`);
 
-  if (hasService(options, 'facebook')) {
+  if (hasService(options, "facebook")) {
     mutations.push(`
     type Mutation {
       # Login the user with a facebook access token
@@ -57,7 +57,7 @@ export default function(options) {
     }`);
   }
 
-  if (hasService(options, 'google')) {
+  if (hasService(options, "google")) {
     mutations.push(`
     type Mutation {
       # Login the user with a facebook access token
@@ -65,7 +65,7 @@ export default function(options) {
     }`);
   }
 
-  if (hasService(options, 'linkedin')) {
+  if (hasService(options, "linkedin")) {
     mutations.push(`
     type Mutation {
       # Login the user with a facebook access token

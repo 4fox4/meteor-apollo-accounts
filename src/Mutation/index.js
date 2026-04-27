@@ -1,18 +1,18 @@
-import loginWithPassword from './loginWithPassword'
-import loginWithPhone from './loginWithPhone'
-import logout from './logout'
-import changePassword from './changePassword'
-import createUser from './createUser'
-import createUserWithPhone from './createUserWithPhone'
-import verifyEmail from './verifyEmail'
-import resendVerificationEmail from './resendVerificationEmail'
-import resendPhoneVerification from './resendPhoneVerification'
-import forgotPassword from './forgotPassword'
-import resetPassword from './resetPassword'
-import oauth from './oauth'
-import hasService from './oauth/hasService'
+import loginWithPassword from "./loginWithPassword";
+import loginWithPhone from "./loginWithPhone";
+import logout from "./logout";
+import changePassword from "./changePassword";
+import createUser from "./createUser";
+import createUserWithPhone from "./createUserWithPhone";
+import verifyEmail from "./verifyEmail";
+import resendVerificationEmail from "./resendVerificationEmail";
+import resendPhoneVerification from "./resendPhoneVerification";
+import forgotPassword from "./forgotPassword";
+import resetPassword from "./resetPassword";
+import oauth from "./oauth";
+import hasService from "./oauth/hasService";
 
-export default function(options) {
+export default function (options) {
   const resolvers = {
     logout,
     verifyEmail,
@@ -20,7 +20,7 @@ export default function(options) {
     ...oauth(options),
   };
 
-  if (hasService(options, 'password')) {
+  if (hasService(options, "password")) {
     resolvers.loginWithPassword = loginWithPassword;
     resolvers.changePassword = changePassword;
 
@@ -38,10 +38,10 @@ export default function(options) {
     resolvers.resetPassword = resetPassword;
   }
 
-  if (hasService(options, 'phone')) {
-    resolvers.loginWithPhone = loginWithPhone
-    resolvers.createUserWithPhone = createUserWithPhone
-    resolvers.resendPhoneVerification = resendPhoneVerification
+  if (hasService(options, "phone")) {
+    resolvers.loginWithPhone = loginWithPhone;
+    resolvers.createUserWithPhone = createUserWithPhone;
+    resolvers.resendPhoneVerification = resendPhoneVerification;
   }
 
   return { Mutation: resolvers };
