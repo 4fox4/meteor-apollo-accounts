@@ -2,7 +2,7 @@
 
 Package.describe({
   name: "4fox4:apollo-accounts",
-  version: "0.1.1",
+  version: "0.2.0",
   // Brief, one-line summary of the package.
   summary: "Meteor accounts in GraphQL",
   // URL to the Git repository containing the source code for this package.
@@ -13,7 +13,7 @@ Package.describe({
 });
 
 Package.onUse(function (api) {
-  api.versionsFrom("2.4");
+  api.versionsFrom(["2.4", "3.0"]);
 
   api.use(
     [
@@ -21,14 +21,13 @@ Package.onUse(function (api) {
       "accounts-base",
       "oauth2",
       "ecmascript",
-      "http@2.0.0",
       "random",
       "oauth",
       "service-configuration",
       "accounts-oauth",
       "sha",
     ],
-    "server"
+    "server",
   );
 
   api.mainModule("src/index.js", "server");

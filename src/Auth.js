@@ -1,4 +1,4 @@
-export default function(options) {
+export default function (options) {
   return `
 # Type returned when the user logs in
 type LoginMethodResponse {

@@ -1,37 +1,43 @@
-import resolver from './resolver'
-import {HTTP} from 'meteor/http'
+import resolver from "./resolver";
 
-const handleAuthFromAccessToken = function ({accessToken}) {
-  const scopes = getScopes(accessToken)
-  const identity = getIdentity(accessToken)
+const handleAuthFromAccessToken = async function ({ accessToken }) {
+  const [identity, scopes] = await Promise.all([
+    getIdentity(accessToken),
+    getScopes(accessToken),
+  ]);
 
   const serviceData = {
     ...identity,
     accessToken,
-    scopes
-  }
+    scopes,
+  };
 
   return {
-    serviceName: 'google',
+    serviceName: "google",
     serviceData,
-    options: {profile: {name: identity.name}}
-  }
-}
+    options: { profile: { name: identity.name } },
+  };
+};
 
-const getIdentity = function (accessToken) {
+const getIdentity = async function (accessToken) {
   try {
-    return HTTP.get('https://www.googleapis.com/oauth2/v1/userinfo', {params: {access_token: accessToken}}).data
+    const url = `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${encodeURIComponent(accessToken)}`;
+    const res = await fetch(url);
+    return res.json();
   } catch (err) {
-    throw new Error('Failed to fetch identity from Google. ' + err.message)
+    throw new Error("Failed to fetch identity from Google. " + err.message);
   }
-}
+};
 
-const getScopes = function (accessToken) {
+const getScopes = async function (accessToken) {
   try {
-    return HTTP.get('https://www.googleapis.com/oauth2/v1/tokeninfo', {params: {access_token: accessToken}}).data.scope.split(' ')
+    const url = `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${encodeURIComponent(accessToken)}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.scope.split(" ");
   } catch (err) {
-    throw new Error('Failed to fetch tokeninfo from Google. ' + err.message)
+    throw new Error("Failed to fetch tokeninfo from Google. " + err.message);
   }
-}
+};
 
-export default resolver(handleAuthFromAccessToken)
+export default resolver(handleAuthFromAccessToken);
