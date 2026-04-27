@@ -43,17 +43,30 @@ const getAccessToken = async function (code, redirectUri) {
     body: params.toString(),
   });
   const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(
+      data?.error_description ||
+        data?.error ||
+        `Failed to fetch access token from LinkedIn (status ${res.status})`
+    );
+  }
+
+  if (typeof data?.access_token !== "string" || data.access_token.length === 0) {
+    throw new Error("LinkedIn access token response did not include a valid access_token");
+  }
+
   return data.access_token;
 };
 
 const getIdentity = async function (accessToken) {
-  try {
-    const url = `https://www.linkedin.com/v1/people/~:(id,email-address,first-name,last-name,headline)?oauth2_access_token=${encodeURIComponent(accessToken)}&format=json`;
-    const res = await fetch(url);
-    return res.json();
-  } catch (err) {
-    throw new Error("Failed to fetch identity from LinkedIn. " + err.message);
+  const url = `https://www.linkedin.com/v1/people/~:(id,email-address,first-name,last-name,headline)?oauth2_access_token=${encodeURIComponent(accessToken)}&format=json`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(`Failed to fetch identity from LinkedIn (status ${res.status}${data?.message ? `: ${data.message}` : ""})`);
   }
+  return res.json();
 };
 
 export default resolver(handleAuthFromAccessToken);

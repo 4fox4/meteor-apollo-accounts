@@ -26,6 +26,7 @@ Package.onUse(function (api) {
       "service-configuration",
       "accounts-oauth",
       "sha",
+      "fetch",
     ],
     "server",
   );

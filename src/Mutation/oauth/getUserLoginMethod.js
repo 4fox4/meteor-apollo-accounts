@@ -6,7 +6,8 @@ export default async function (email) {
     email.indexOf("@") !== -1
       ? await Accounts.findUserByEmail(email)
       : await Accounts.findUserByUsername(email);
-  const { services } = user;
+  if (!user) return "unknown";
+  const { services = {} } = user;
   const list = [];
   for (const key in services) {
     if (key === "email") continue;
